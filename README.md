@@ -110,8 +110,54 @@ contentMargin:每一个白色正方形相互之间的间隔。
     } 
 ```
 ![drawText](./img/drawText.png)
+
 如果你这样 canvas.drawText(drawText, 0, drawText.length(), cx, cy, pwdTextPaint);绘制明文你会发现明文其实是偏中上位置的。因为cy所代表的是基线的位置.x其实可以直接使用cx的，只要设置pwdTextPaint的setTextAlign(Paint.Align.CENTER)，默认是Paint.Align.LEFT。这个属性是x相对于绘制字符串的位置，如果是Paint.Align.LEFT则x在绘制字符串的左边，如果是Paint.Align.CENTER则x在绘制字符串的中间，显然符合我们的需求。为什么没有拿top和bottom计算baseLineY呢？因为系统建议的，绘制单个字符时字符的最高高度应该是ascent最低高度应该是descent。所以计算出来baseLineY:cy-(paint.ascent()+paint.descent())/2。
 
+## 绘制光标
+```java
+/** 
+   * 绘制光标 
+   * 
+   * @param canvas 
+   */  
+  private void drawCursor(Canvas canvas) {  
+      float startX, startY, stopY;  
+      int sin = curLenght - 1;  
+      float half = contentWidth / 2;  
+  
+      if (sin == -1) {  
+          startX = borderWidth + half;  
+          startY = cursorMargin + borderWidth;  
+          stopY = height - borderWidth - cursorMargin;  
+          canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);  
+      } else {  
+          startX = borderWidth + sin * (contentWidth + contentMargin) + half + pwdWidth;  
+          startY = cursorMargin + borderWidth;  
+          stopY = height - borderWidth - cursorMargin;  
+          canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);  
+      }  
+  }  
+```
+![drawCursor](./img/drawCursor.png)
+
+绘制光标的时候有一个注意点：第一个密码输入框在没有输入字符时它应该显示在密码输入框中间，如果输入了字符就显示在字符右边。
+
+## 绘制分割线
+```java
+/** 
+     * 绘制分割线 
+     * 
+     * @param canvas 
+     */  
+  
+    private void drawSplitLine(Canvas canvas) {  
+        float startX = rect.left + borderWidth + contentWidth + (contentMargin / 2.0f);  
+        for (int i = 1; i < pwdLen; i++) {  
+            canvas.drawLine(startX, rect.top + borderWidth, startX, rect.bottom - borderWidth, splitLinePaint);  
+            startX = startX + contentWidth + contentMargin;  
+        }  
+    } 
+```
 
 ## 代码
 ```xml
@@ -147,3 +193,5 @@ contentMargin:每一个白色正方形相互之间的间隔。
 |deleteLast|无|无|无|从追后一个字符逐个删除|
 |showPwdText|showPwdText|boolean|false|是否显示明文|
 |isShowPwdText|无|无|无|当前显示的是否是明文|
+
+详细请查看：[这里](https://blog.csdn.net/baidu_34012226/article/details/80270311)
