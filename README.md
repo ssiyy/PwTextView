@@ -3,10 +3,10 @@
 implementation 'com.siyer:pwdview:1.0.0‘
 
 ## Demo截图
-![demo](./show.gif)
+![demo](./img/show.gif)
 
 ## 绘制原理图
-![demo1](./show1.gif)
+![demo1](./img/show1.gif)
 
 ## 首先是绘制黑色的底
 ```java
@@ -56,7 +56,7 @@ borderWidth:每一个白色的正方形顶部(底部)距离黑色长方形顶部
 contentMargin:每一个白色正方形相互之间的间隔。
 
 然后仔细计算每次绘制rectIn。
-
+![demo1](./img/drawContent.png)
 
 ## 代码
 ```xml
