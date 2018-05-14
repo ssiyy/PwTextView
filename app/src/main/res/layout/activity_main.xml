@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.siyer.test.MainActivity">
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.siy.pwdview.PwdView
+        android:id="@+id/pwdviewId"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="26sp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/num1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#5e4c52"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="1"
+            android:textColor="#fbf6f6"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/num2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="#5e4c52"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="2"
+            android:textColor="#fbf6f6"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/num3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="#5e4c52"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="3"
+            android:textColor="#fbf6f6"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/num4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="#5e4c52"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="4"
+            android:textColor="#fbf6f6"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="#5e4c52"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="删除"
+            android:textColor="#fbf6f6"
+            android:textSize="25sp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/setBorderWidth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置边框的宽"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setBorderRadius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置边界圆角"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setBorderColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置边框的颜色"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+
+            <TextView
+                android:id="@+id/bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置背景"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setContentColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="密码框颜色"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setContentBoardColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="密码框边界颜色"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setContentBoardWidth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="密码框边界宽"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setContentRadius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置内容圆角"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setContentMargin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="密码框之间的间隔"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+
+            <TextView
+                android:id="@+id/setSplitLineColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置分割线颜色"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setPwdColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="密码圆点颜色"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setPwdWidth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="密码圆点宽度"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/showOrg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="切换明文与密文"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/showCursor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="切换光标显示与隐藏"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setCursorMargin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="光标与内边框的间距"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setCursorColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置光标颜色"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/setPwdLen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#5e4c52"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置密码长度+1"
+                android:textColor="#db0b0b"
+                android:textSize="25sp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
