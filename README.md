@@ -2,8 +2,11 @@
 依赖：
 implementation 'com.siyer:pwdview:1.0.0‘
 
-## 截图
+## Demo截图
 ![demo](./show.gif)
+
+## 绘制原理图
+！[demo](./show1.gif)
 
 ## 代码
 ```xml
@@ -14,3 +17,7 @@ implementation 'com.siyer:pwdview:1.0.0‘
 	android:textColor="@color/colorAccent"
 	android:textSize="26sp"/>
 ```
+## 对外接口
+| 接口名称 | 参数 | 参数类型 | 默认值 | 解释 |
+| :---: | :---: | :-------: | :---: | :---:|
+| showCursor | 无 | 无 | 无 | 判断光标是否显示 |
