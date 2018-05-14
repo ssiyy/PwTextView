@@ -18,9 +18,13 @@ implementation 'com.siyer:pwdview:1.0.0‘
    }  
 ```
 rect:黑色长方形大小。
+
 borderRadius:黑色长方形的圆角度数，当为0时就是直角
+
 borderPaint:黑色长方形的画笔
+
 Canvas.drawRoundRect:绘制的是圆角矩形
+
 ## 然后绘制白色内容区域
 ```java
 /** 
@@ -44,9 +48,13 @@ Canvas.drawRoundRect:绘制的是圆角矩形
     } 
 ```
 rectIn:白色的正方形大小。
+
 绘制白色正方形的时候有2个考虑点：borderWidth和contentMargin。
+
 borderWidth:每一个白色的正方形顶部(底部)距离黑色长方形顶部(底部)距离，第一个白色正方形的左边距离黑色长方形左边的距离，最后一个白色正方形的右边距离黑色长方形右边的距离。
+
 contentMargin:每一个白色正方形相互之间的间隔。
+
 然后仔细计算每次绘制rectIn。
 
 
