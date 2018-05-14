@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,10 +21,9 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 /**
- *
  * 整理思路：先绘制一整块区域，然后绘制一个一个正方形，然后在正方形中绘制密码
- *
- *
+ * <p>
+ * <p>
  * 密码输入框
  * <p>
  * Created by Siy on 2017/8/18.
@@ -208,6 +208,17 @@ public class PwdView extends TextView {
      */
     private Paint cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+    /**
+     * 光标距离密码的距离
+     */
+    private int cursourMarginPwd;
+
+    /**
+     * 测量文字宽高
+     */
+    private Rect textBoundrect;
+
+
     public PwdView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -245,7 +256,7 @@ public class PwdView extends TextView {
         setFilters(new InputFilter[]{new InputFilter.LengthFilter(pwdLen)});
 
         pwdColor = Color.parseColor("#000000");
-        pwdWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 28, getResources().getDisplayMetrics()) / 2;
+        pwdWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics());
 
         borderPaint.setStyle(Paint.Style.FILL);
         borderPaint.setColor(borderColor);
@@ -261,6 +272,8 @@ public class PwdView extends TextView {
         splitLinePaint.setColor(splitLineColor);
 
         cursorPaint.setColor(cursorColor);
+        cursourMarginPwd = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+        textBoundrect = new Rect();
 
         pwdPaint.setStyle(Paint.Style.FILL);
         pwdPaint.setColor(pwdColor);
@@ -277,15 +290,16 @@ public class PwdView extends TextView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        calculateBorderAndContentSize(w,h);
+        calculateBorderAndContentSize(w, h);
     }
 
     /**
      * 当borderWidth,pwdLen,contentMargin修改之后需要调用此方法
+     *
      * @param w TextView控件的宽
      * @param h TextView控件的高
      */
-    private void calculateBorderAndContentSize(int w,int h){
+    private void calculateBorderAndContentSize(int w, int h) {
         //算出本应该的宽高
         contentWidth = (w - 2 * borderWidth - (pwdLen - 1) * contentMargin) / (float) pwdLen;
         contentHeight = h - 2 * borderWidth;
@@ -397,9 +411,16 @@ public class PwdView extends TextView {
             stopY = height - borderWidth - cursorMargin;
             canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);
         } else {
-            startX = borderWidth + sin * (contentWidth + contentMargin) + half + pwdWidth;
             startY = cursorMargin + borderWidth;
             stopY = height - borderWidth - cursorMargin;
+
+            if (isShowPwdText) {
+                String s = String.valueOf(getText().charAt(sin));
+                pwdTextPaint.getTextBounds(s, 0, s.length(), textBoundrect);
+                startX = borderWidth + sin * (contentWidth + contentMargin) + half + textBoundrect.width() / 2 + cursourMarginPwd;
+            } else {
+                startX = borderWidth + sin * (contentWidth + contentMargin) + half + pwdWidth / 2 + cursourMarginPwd;
+            }
             canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);
         }
     }
@@ -416,21 +437,21 @@ public class PwdView extends TextView {
         Bundle bundle = new Bundle();
         bundle.putParcelable("instanceState", super.onSaveInstanceState());
         bundle.putString("curtext", getText().toString());
-        bundle.putBoolean("isShowCursor",isShowCursor);
-        bundle.putBoolean("isShowPwdText",isShowPwdText);
-        bundle.putInt("borderColor",borderColor);
-        bundle.putInt("borderRadius",borderRadius);
-        bundle.putInt("contentColor",contentColor);
-        bundle.putInt("contentBoardColor",contentBoardColor);
-        bundle.putInt("contentBoardWidth",contentBoardWidth);
-        bundle.putInt("contentRadius",contentRadius);
-        bundle.putInt("contentMargin",contentMargin);
-        bundle.putInt("splitLineColor",splitLineColor);
-        bundle.putInt("cursorColor",cursorColor);
-        bundle.putInt("cursorMargin",cursorMargin);
-        bundle.putInt("pwdLen",pwdLen);
-        bundle.putInt("pwdColor",pwdColor);
-        bundle.putInt("pwdWidth",pwdWidth);
+        bundle.putBoolean("isShowCursor", isShowCursor);
+        bundle.putBoolean("isShowPwdText", isShowPwdText);
+        bundle.putInt("borderColor", borderColor);
+        bundle.putInt("borderRadius", borderRadius);
+        bundle.putInt("contentColor", contentColor);
+        bundle.putInt("contentBoardColor", contentBoardColor);
+        bundle.putInt("contentBoardWidth", contentBoardWidth);
+        bundle.putInt("contentRadius", contentRadius);
+        bundle.putInt("contentMargin", contentMargin);
+        bundle.putInt("splitLineColor", splitLineColor);
+        bundle.putInt("cursorColor", cursorColor);
+        bundle.putInt("cursorMargin", cursorMargin);
+        bundle.putInt("pwdLen", pwdLen);
+        bundle.putInt("pwdColor", pwdColor);
+        bundle.putInt("pwdWidth", pwdWidth);
         return bundle;
     }
 
@@ -444,9 +465,9 @@ public class PwdView extends TextView {
             }
 
             boolean isShowCursor = bundle.getBoolean("isShowCursor");
-            if (isShowCursor){
+            if (isShowCursor) {
                 showCursor();
-            }else{
+            } else {
                 hideCursor();
             }
 
@@ -586,7 +607,7 @@ public class PwdView extends TextView {
      */
     public void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
-        calculateBorderAndContentSize(getWidth(),getHeight());
+        calculateBorderAndContentSize(getWidth(), getHeight());
         invalidateView();
     }
 
@@ -656,15 +677,16 @@ public class PwdView extends TextView {
     public void setPwdLen(int pwdLen) {
         this.pwdLen = pwdLen;
         setFilters(new InputFilter[]{new InputFilter.LengthFilter(pwdLen)});
-        calculateBorderAndContentSize(getWidth(),getHeight());
+        calculateBorderAndContentSize(getWidth(), getHeight());
         invalidateView();
     }
 
     /**
      * 获取密码长度
+     *
      * @return 密码长度
      */
-    public int getPwdLen(){
+    public int getPwdLen() {
         return this.pwdLen;
     }
 
@@ -682,6 +704,7 @@ public class PwdView extends TextView {
 
     /**
      * 设置密码圆点的宽度(直径)
+     *
      * @param pwdWidth
      */
     public void setPwdWidth(int pwdWidth) {
@@ -691,16 +714,18 @@ public class PwdView extends TextView {
 
     /**
      * 设置内容框直接的间隔
+     *
      * @param contentMargin
      */
     public void setContentMargin(int contentMargin) {
         this.contentMargin = contentMargin;
-        calculateBorderAndContentSize(getWidth(),getHeight());
+        calculateBorderAndContentSize(getWidth(), getHeight());
         invalidateView();
     }
 
     /**
      * 内容边界颜色
+     *
      * @param contentBoardColor
      */
     public void setContentBoardColor(int contentBoardColor) {
@@ -711,6 +736,7 @@ public class PwdView extends TextView {
 
     /**
      * 内容边界宽度
+     *
      * @param contentBoardWidth
      */
     public void setContentBoardWidth(int contentBoardWidth) {

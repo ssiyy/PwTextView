@@ -118,32 +118,39 @@ contentMargin:每一个白色正方形相互之间的间隔。
 
 ## 绘制光标
 ```java
-/** 
-   * 绘制光标 
-   * 
-   * @param canvas 
-   */  
-  private void drawCursor(Canvas canvas) {  
-      float startX, startY, stopY;  
-      int sin = curLenght - 1;  
-      float half = contentWidth / 2;  
-  
-      if (sin == -1) {  
-          startX = borderWidth + half;  
-          startY = cursorMargin + borderWidth;  
-          stopY = height - borderWidth - cursorMargin;  
-          canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);  
-      } else {  
-          startX = borderWidth + sin * (contentWidth + contentMargin) + half + pwdWidth;  
-          startY = cursorMargin + borderWidth;  
-          stopY = height - borderWidth - cursorMargin;  
-          canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);  
-      }  
-  }  
+ /**
+     * 绘制光标
+     *
+     * @param canvas
+     */
+    private void drawCursor(Canvas canvas) {
+        float startX, startY, stopY;
+        int sin = curLenght - 1;
+        float half = contentWidth / 2;
+
+        if (sin == -1) {
+            startX = borderWidth + half;
+            startY = cursorMargin + borderWidth;
+            stopY = height - borderWidth - cursorMargin;
+            canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);
+        } else {
+            startY = cursorMargin + borderWidth;
+            stopY = height - borderWidth - cursorMargin;
+
+            if (isShowPwdText) {
+                String s = String.valueOf(getText().charAt(sin));
+                pwdTextPaint.getTextBounds(s, 0, s.length(), textBoundrect);
+                startX = borderWidth + sin * (contentWidth + contentMargin) + half + textBoundrect.width() / 2 + cursourMarginPwd;
+            } else {
+                startX = borderWidth + sin * (contentWidth + contentMargin) + half + pwdWidth / 2 + cursourMarginPwd;
+            }
+            canvas.drawLine(drawStartX + startX, drawStartY + startY, drawStartX + startX, drawStartY + stopY, cursorPaint);
+        }
+    }
 ```
 ![drawCursor](./img/drawCursor.png)
 
-绘制光标的时候有一个注意点：第一个密码输入框在没有输入字符时它应该显示在密码输入框中间，如果输入了字符就显示在字符右边。
+绘制光标的时候有一个注意点：第一个密码输入框在没有输入字符时它应该显示在密码输入框中间，如果输入了字符就显示在字符右边.还需要注意字符是明文还是密文，因为我们需要分别计算明文和密文的宽度。
 
 ## 绘制分割线
 ```java
