@@ -1,6 +1,9 @@
 # 一个高度灵活的仿微信密码框
+## jcenter地址
 依赖：
+```gradle
 implementation 'com.siyer:pwdview:1.0.0‘
+```
 
 ## Demo截图
 ![demo](./img/show.gif)
