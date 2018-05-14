@@ -8,7 +8,7 @@ implementation 'com.siyer:pwdview:1.0.0‘
 ## 绘制原理图
 ![demo1](./img/show1.gif)
 
-## 首先是绘制黑色的底
+## 绘制黑色的底
 ```java
 /** 
     * 绘制边框,先绘制一整块区域 
@@ -25,7 +25,7 @@ borderPaint:黑色长方形的画笔
 
 Canvas.drawRoundRect:绘制的是圆角矩形
 
-## 然后绘制白色内容区域
+## 绘制白色内容区域
 ```java
 /** 
      * 绘制内容区域,和内容边界 
@@ -56,7 +56,62 @@ borderWidth:每一个白色的正方形顶部(底部)距离黑色长方形顶部
 contentMargin:每一个白色正方形相互之间的间隔。
 
 然后仔细计算每次绘制rectIn。
-![demo1](./img/drawContent.png)
+![content](./img/drawContent.png)
+
+## 绘制密码显示的圆点
+```java
+/** 
+     * 绘制密码 
+     * 
+     * @param canvas 
+     */  
+    private void drawPwd(Canvas canvas) {  
+        float cy = rect.top + height / 2;  
+        float cx = rect.left + contentWidth / 2 + borderWidth;  
+  
+        CharSequence nowText = getText();  
+        for (int i = 0; i < curLenght; i++) {  
+            if (isShowPwdText) {  
+                String drawText = String.valueOf(nowText.charAt(i));  
+                canvas.drawText(drawText, 0, drawText.length(), cx, cy - pwdTextOffsetY, pwdTextPaint);  
+            } else {  
+                canvas.drawCircle(cx, cy, pwdWidth / 2, pwdPaint);  
+            }  
+            cx = cx + contentWidth + contentMargin;  
+        }  
+    } 
+```
+### cx:
+![drawpwdx](./img/drawPwd_cx.png)
+### cy:
+![drawpwdy](./img/drawPwd_cy.png)
+
+## 绘制明文
+```java
+/** 
+     * 绘制密码 
+     * 
+     * @param canvas 
+     */  
+    private void drawPwd(Canvas canvas) {  
+        float cy = rect.top + height / 2;  
+        float cx = rect.left + contentWidth / 2 + borderWidth;  
+  
+        CharSequence nowText = getText();  
+        for (int i = 0; i < curLenght; i++) {  
+            if (isShowPwdText) {  
+                String drawText = String.valueOf(nowText.charAt(i));  
+                canvas.drawText(drawText, 0, drawText.length(), cx, cy - pwdTextOffsetY, pwdTextPaint);  
+            } else {  
+                canvas.drawCircle(cx, cy, pwdWidth / 2, pwdPaint);  
+            }  
+            cx = cx + contentWidth + contentMargin;  
+        }  
+    } 
+```
+![drawText](./img/drawText.png)
+如果你这样 canvas.drawText(drawText, 0, drawText.length(), cx, cy, pwdTextPaint);绘制明文你会发现明文其实是偏中上位置的。因为cy所代表的是基线的位置.x其实可以直接使用cx的，只要设置pwdTextPaint的setTextAlign(Paint.Align.CENTER)，默认是Paint.Align.LEFT。这个属性是x相对于绘制字符串的位置，如果是Paint.Align.LEFT则x在绘制字符串的左边，如果是Paint.Align.CENTER则x在绘制字符串的中间，显然符合我们的需求。为什么没有拿top和bottom计算baseLineY呢？因为系统建议的，绘制单个字符时字符的最高高度应该是ascent最低高度应该是descent。所以计算出来baseLineY:cy-(paint.ascent()+paint.descent())/2。
+
 
 ## 代码
 ```xml
