@@ -2,7 +2,7 @@
 ## jcenter地址
 依赖：
 ```gradle
-implementation 'com.siyer:pwdview:1.0.0‘
+implementation 'com.siyer:pwdview:1.0.0'
 ```
 
 ## Demo截图
