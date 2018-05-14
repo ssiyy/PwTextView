@@ -20,4 +20,7 @@ implementation 'com.siyer:pwdview:1.0.0‘
 ## 对外接口
 | 接口名称 | 参数 | 参数类型 | 默认值 | 解释 |
 | :---: | :---: | :-------: | :---: | :---:|
-| showCursor | 无 | 无 | 无 | 判断光标是否显示 |
+| showCursor | 无 | 无 | 无 | 显示光标 |
+| hideCursor | 无 | 无 | 无 | 隐藏光标 |
+| isShowCursor | 无 | 无 | 无 | 判断光标是否显示 |
+| setBorderColor | borderColor | int |Color.parseColor("#818b90") |设置边框的颜色|
