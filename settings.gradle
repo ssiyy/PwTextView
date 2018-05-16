@@ -1,1 +1,11 @@
-include ':app', ':pwdview'
+def initGradleEnvironment() {
+    Properties properties = new Properties()
+    File propertyFile = new File(rootDir.getAbsolutePath() + "/local.properties")
+    properties.load(propertyFile.newDataInputStream())
+    gradle.ext.bintrayKey = properties.getProperty('bintrayKey')
+    gradle.ext.bintrayUser = properties.getProperty("bintrayUser")
+}
+
+initGradleEnvironment()
+
+include ':app', ':library'
