@@ -171,12 +171,12 @@ contentMargin:每一个白色正方形相互之间的间隔。
 
 ## 代码
 ```xml
-<com.siy.pwdview.PwdView
-	android:id="@+id/pwdviewId"
-	android:layout_width="match_parent"
-	android:layout_height="100dp"
-	android:textColor="@color/colorAccent"
-	android:textSize="26sp"/>
+   <coder.siy.view.PwTextView
+        android:id="@+id/pwdviewId"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="26sp"/>
 ```
 ## 对外接口
 | 接口名称 | 参数 | 参数类型 | 默认值 | 解释 |
